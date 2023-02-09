@@ -4,7 +4,7 @@ Module file_storage
 Initilase class File Storage 
 """
 
-from models.base_model import BaseModel
+from models
 import json
 
 
@@ -33,11 +33,11 @@ class FileStorage:
         Serialise
         save obj dictioniries to json file
         """
-        my_dict = {}
-        for key, obj in self.__objects.items():
-            my_dict[key] = obj.to_dict()
-            with open(self.__file_path, 'w') as file:
-                json.dump(my_dict, file)
+        json_objs = {}
+        for key, value in self.__objects.items():
+            json_objs[key] = value.to_dict()
+        with open(self.__file_path, 'w') as file:
+                json.dump(json_objs, file)
                                                
     def reload(self):
         '''
@@ -46,10 +46,10 @@ class FileStorage:
         '''
         try:
             with open(self.__file_path, 'r') as file:
-                new_obj = json.loads(file)
-                for key, value in new_obj.items():
-                    obj = self.class_dic[value['__class__']](**value)
-                    self.__objects[key] = obj
+                new_obj = json.load(file)
+                for key in new_obj:
+                    self.__objects[key] = getattr(
+                        models, new_obj[key]['__class__'])(**new_obj[key])
         except FileExistsError:
             pass
         
