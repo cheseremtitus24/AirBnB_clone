@@ -4,8 +4,9 @@ Module file_storage
 Initilase class File Storage 
 """
 
-from models
 import json
+
+import models
 
 
 class FileStorage:
@@ -28,6 +29,7 @@ class FileStorage:
         if obj:
             key = '{}.{}'.format(obj.__class__.__name__, obj.id)
             self.__objects[key] = obj
+
     def save(self):
         """
         Serialise
@@ -44,13 +46,15 @@ class FileStorage:
         deserialise
         if json file exisists , convert json objects back to instances in a dictionary
         '''
+        print("Debug: Loading File Objects from File storage")
         try:
+            print("Searched file path is ", self.__file_path)
             with open(self.__file_path, 'r') as file:
                 new_obj = json.load(file)
                 for key in new_obj:
-                    self.__objects[key] = getattr(
-                        models, new_obj[key]['__class__'])(**new_obj[key])
-        except FileExistsError:
+                    self.__objects[key] = getattr(models, new_obj[key]['__class__'])(**new_obj[key])
+        except FileNotFoundError:
+            print("Debug: The Requested Json File Does not Exist")
             pass
         
 

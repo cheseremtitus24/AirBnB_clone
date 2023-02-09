@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from uuid import uuid4
 from datetime import datetime
-import models
+from models import storage
 
 
 """
@@ -31,7 +31,7 @@ class BaseModel:
                 self.id = str(uuid4())
                 self.created_at = datetime.now()
                 self.updated_at = datetime.now()
-                models.storage.new(self)
+                storage.new(self)
 
     def __str__(self):
         """Return string information about base Model"""
@@ -40,8 +40,10 @@ class BaseModel:
 
     def save(self):
         """update updated_at time """
+        # perform test for this using now to ensure that values
+        # created is atleast 3 seconds within range
         self.updated_at = datetime.now()
-        models.storage.save()
+        storage.save()
 
     def to_dict(self):
         """
