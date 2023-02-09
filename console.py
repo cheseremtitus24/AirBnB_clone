@@ -3,15 +3,16 @@
 Once the command is known, argument completion is handled by methods with the prefix complete_. This allows you to assemble a list of possible completions using your own criteria (query a database, look at at a file or directory on the filesystem, etc.). In this case, the program has a hard-coded set of “friends” who receive a less formal greeting than named or anonymous strangers. A real program would probably save the list somewhere, and either read it once and cache the contents to be scanned as needed.
 """
 import cmd
+import sys
 
 
-class HelloWorld(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     """Simple command processor example.
     It does not make use of the default help
     which is derived from a function docstring
     rather it reads from help_*funcname*"""
 
-    prompt = '(hbtn) '
+    prompt = '(hbnb) '
 
     FRIENDS = ['Alice', 'Adam', 'Barbara', 'Bob']
 
@@ -45,6 +46,9 @@ class HelloWorld(cmd.Cmd):
     def do_quit(self, line):
         """ Exits the program """
         return True
+    def help_quit(self):
+        """ Provides the helper text that explains what the quit function does"""
+        print("Quit command to exit the program\n")
 
     def emptyline(self):
         """Skips when an empty line is passed as a commandline argument """
@@ -54,8 +58,9 @@ class HelloWorld(cmd.Cmd):
         """ This function is executed when cmdloop ends
         thus add a new line at end
         """
-        print() 
+        pass
 
 
 if __name__ == '__main__':
-    HelloWorld().cmdloop()
+        HBNBCommand().cmdloop()
+
