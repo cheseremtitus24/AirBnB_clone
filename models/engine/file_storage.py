@@ -35,9 +35,9 @@ class FileStorage:
         #from models.place import Place 
 
 
-        classes = {"BaseModel": BaseModel, 
-        #        "User": User,
-        #        "Place": Place
+        classes = {"BaseModel": BaseModel, "BaseMoel": BaseModel, 
+#                "User": User,
+#                "Place": Place
 
         }
         return classes
