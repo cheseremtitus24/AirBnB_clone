@@ -8,13 +8,13 @@ from models.base_model import BaseModel
 from models import storage
 
 
-class HBNBCommand(cmd.Cmd):
+class HelloWorld(cmd.Cmd):
     """Simple command processor example.
     It does not make use of the default help
     which is derived from a function docstring
     rather it reads from help_*funcname*"""
 
-    prompt = '(hbnb) '
+    prompt = '(hbtn) '
 
     FRIENDS = ['Alice', 'Adam', 'Barbara', 'Bob']
 
@@ -67,9 +67,6 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, line):
         """ Exits the program """
         return True
-    def help_quit(self):
-        """ Provides the helper text that explains what the quit function does"""
-        print("Quit command to exit the program\n")
 
     def emptyline(self):
         """Skips when an empty line is passed as a commandline argument """
@@ -79,9 +76,8 @@ class HBNBCommand(cmd.Cmd):
         """ This function is executed when cmdloop ends
         thus add a new line at end
         """
-        pass
+        print() 
 
 
 if __name__ == '__main__':
-        HBNBCommand().cmdloop()
-
+    HelloWorld().cmdloop()
