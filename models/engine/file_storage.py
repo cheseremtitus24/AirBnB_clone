@@ -1,60 +1,51 @@
 #!/usr/bin/python3
-"""
-Module file_storage
-Initilase class File Storage 
-"""
-
+"""Module for FileStorage class."""
+import datetime
 import json
-
-import models
+import os
 
 
 class FileStorage:
-    """
-    serialises instances to a Json file and deserialises Json file to instances
-    """
+
+    """Class for serializtion and deserialization of base classes."""
     __file_path = "file.json"
     __objects = {}
+
     def all(self):
-        """
-        Return dictionary of class.id: object instances"
-        return a diction of clasess as keys and their instances as values
-        """
-        return self.__objects
-    
+        """Returns __objects dictionary."""
+        # TODO: should this be a copy()?
+        return FileStorage.__objects
+
     def new(self, obj):
-        """
-        add new objects to existing dictionaries
-        """
-        if obj:
-            key = '{}.{}'.format(obj.__class__.__name__, obj.id)
-            self.__objects[key] = obj
+        """Sets new obj in __objects dictionary."""
+        # TODO: should these be more precise specifiers?
+        key = "{}.{}".format(type(obj).__name__, obj.id)
+        FileStorage.__objects[key] = obj
 
     def save(self):
-        """
-        Serialise
-        save obj dictioniries to json file
-        """
-        json_objs = {}
-        for key, value in self.__objects.items():
-            json_objs[key] = value.to_dict()
-        with open(self.__file_path, 'w') as file:
-                json.dump(json_objs, file)
-                                               
+        """Serialzes __objects to JSON file."""
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+            d = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
+            json.dump(d, f)
+
+    def classes(self):
+        """Returns a dictionary of valid classes and their references."""
+        from models.base_model import BaseModel
+
+
+        classes = {"BaseModel": BaseModel,
+
+        }
+        return classes
+
     def reload(self):
-        '''
-        deserialise
-        if json file exisists , convert json objects back to instances in a dictionary
-        '''
-        print("Debug: Loading File Objects from File storage")
-        try:
-            print("Searched file path is ", self.__file_path)
-            with open(self.__file_path, 'r') as file:
-                new_obj = json.load(file)
-                for key in new_obj:
-                    self.__objects[key] = getattr(models, new_obj[key]['__class__'])(**new_obj[key])
-        except FileNotFoundError:
-            print("Debug: The Requested Json File Does not Exist")
-            pass
-        
+        """Deserializes JSON file into __objects."""
+        if not os.path.isfile(FileStorage.__file_path):
+            return
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+            obj_dict = json.load(f)
+            obj_dict = {k: self.classes()[v["__class__"]](**v)
+                        for k, v in obj_dict.items()}
+            # TODO: should this overwrite or insert?
+            FileStorage.__objects = obj_dict
 
