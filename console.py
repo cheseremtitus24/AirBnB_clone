@@ -4,6 +4,8 @@ Once the command is known, argument completion is handled by methods with the pr
 """
 import cmd
 import sys
+from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -15,6 +17,25 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
     FRIENDS = ['Alice', 'Adam', 'Barbara', 'Bob']
+
+    def do_create(self, args):
+        """ Creates a Class Instance and Saves to Storage:
+            (hbnb) create User
+            """
+
+        # checks if class name is missing/empty
+        if not line:
+            print("** class name missing **")
+        # checks that args(class Name) Exists
+        elif line not in storage.classes():
+            print("** class doesn't exist **")
+        else:
+            # Instantiate the new class and save to storage
+            st = storage.classes()[args]()
+            st.save()
+            print(st.id)
+
+            
 
     def do_greet(self, person):
         'This help msg is overriden by help_greet'
