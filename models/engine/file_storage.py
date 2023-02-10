@@ -31,9 +31,13 @@ class FileStorage:
     def classes(self):
         """Returns a dictionary of valid classes and their references."""
         from models.base_model import BaseModel
+        #from models.user import User
+        #from models.place import Place 
 
 
-        classes = {"BaseModel": BaseModel,
+        classes = {"BaseModel": BaseModel, 
+        #        "User": User,
+        #        "Place": Place
 
         }
         return classes
