@@ -1,9 +1,13 @@
 #!/usr/bin/python3
-"""Module for Amenity class."""
-
+'''
+Module amenity
+'''
 from models.base_model import BaseModel
 
-
 class Amenity(BaseModel):
-  """Class representing a Amenity."""
-  name = ""
+    '''
+    Inherits from BaseModel
+    Public atrr:
+        name
+    '''
+    name = ''
