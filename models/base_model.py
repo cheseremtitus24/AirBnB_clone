@@ -6,7 +6,7 @@ from models import storage
 
 """
 Module base_model
-defines class BaseModel for AirBnb clone 
+defines class BaseModel for AirBnb clone
 """
 
 
@@ -20,9 +20,11 @@ class BaseModel:
         if kwargs is not None:
             for key, value in kwargs.items():
                 if "created_at" == key:
-                    self.created_at = datetime.strptime(kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                    self.created_at = datetime.strptime(
+                        kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
                 elif "updated_at" == key:
-                    self.updated_at = datetime.strptime(kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                    self.updated_at = datetime.strptime(
+                        kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
                 elif "__class__" == key:
                     pass
                 else:
@@ -58,4 +60,3 @@ class BaseModel:
             else:
                 dic[key] = value
         return dic
-    

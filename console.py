@@ -14,6 +14,7 @@ scanned as needed.
 """
 import cmd
 import sys
+import re
 from models.base_model import BaseModel
 from models import storage
 
@@ -128,9 +129,6 @@ class HBNBCommand(cmd.Cmd):
             (hbnb) destroy BaseModel ee49c413-023a-4b49-bd28-f2936c95460d
         """
         if not args:
-            """
-
-            """
             print("** class name missing **")
 
         else:
@@ -190,7 +188,65 @@ class HBNBCommand(cmd.Cmd):
 
     def complete_all(self, text, line, begidx, endidx):
         """ Perfoms Class and ID autocompletions
-            (hbnb) destory BaseModel ee49c413-023a-4b49-bd28-f2936c95460d
+            (hbnb) all BaseModel
+            (hbnb) all
+        """
+        if not text:
+            completions = self.__class__.CLASSES[:]
+        else:
+            completions = [f for f in storage.classes() if f.startswith(text)]
+        return completions
+
+    def do_update(self, args):
+        """Updates an instance based on the class name and id by adding or
+        updating attribute (save the change into the JSON file). Ex:
+        (hbnb) update BaseModel 1234-1234-1234 email "aibnb@mail.com".
+        """
+        if not args:
+            print("** class name missing **")
+
+        else:
+            words = args.split(" ")
+            # checks if classname exists
+            if words[0] not in self.__class__.CLASSES[:]:
+                print("** class doesn't exist **")
+            elif len(words) < 2:
+                print("** instance id missing **")
+
+            key = "{}.{}".format(words[0], words[1])
+            if key not in storage.all():
+                print("** no instance found **")
+
+            elif len(words) < 3:
+                print("** attribute name missing **")
+            elif len(words) < 4:
+                print("** value missing **")
+            # ignores addition of other arguments
+            else:
+                value = words[3]
+                attribute = words[2]
+                cast = None
+                if not re.search('^".*"$', value):
+                    if '.' in value:
+                        cast = float
+                    else:
+                        cast = int
+                else:
+                    value = value.replace('"', '')
+                attributes = storage.attributes()[words[0]]
+                if attribute in attributes:
+                    value = attributes[attribute](value)
+                elif cast:
+                    try:
+                        value = cast(value)
+                    except ValueError:
+                        pass
+                setattr(storage.all()[key], attribute, value)
+                storage.all()[key].save()
+
+    def complete_update(self, text, line, begidx, endidx):
+        """ Perfoms Class and ID autocompletions
+            (hbnb) update BaseModel 13-023-4b-b8-fd email "airbnb@mail.com"
         """
         if not text:
             completions = self.__class__.CLASSES[:]
