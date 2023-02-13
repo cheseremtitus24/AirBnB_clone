@@ -11,6 +11,9 @@ strangers.
 A real program would probably save the list somewhere,
 and either read it once and cache the contents to be
 scanned as needed.
+Module console
+This is a commandline interpreter for backend use by the Developer to perform
+specific tasks on data manipulation to a Json file
 """
 
 import cmd
@@ -261,13 +264,21 @@ class HBNBCommand(cmd.Cmd):
         print("\n".join(['greet [person]', '\t\tGreet the named person', ]))
 
     def do_EOF(self, line):
-        """ This handles case when CTRL-D is pressed and
-        cause a successful exit without throwing off an error"""
+        """
+        This handles case when CTRL-D is pressed and
+        cause a successful exit without throwing off an error
+        """
         return True
 
     def do_quit(self, line):
         """ Exits the program """
         return True
+
+    def help_quit(self):
+        """
+        Provides the helper text that explains what the quit function does
+        """
+        print("Quit command to exit the program\n")
 
     def emptyline(self):
         """Skips when an empty line is passed as a commandline argument """
