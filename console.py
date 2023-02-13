@@ -4,6 +4,7 @@ Module console
 This is a commandline interpreter for backend use by the Developer to perform
 specific tasks on data manipulation to a Json file
 """
+
 import cmd
 import sys
 import re

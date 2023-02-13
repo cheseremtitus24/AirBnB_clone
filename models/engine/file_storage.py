@@ -14,6 +14,7 @@ class FileStorage:
     def all(self):
         """Returns __objects dictionary."""
         # TODO: should this be a copy()?
+
         return FileStorage.__objects
 
     def new(self, obj):
