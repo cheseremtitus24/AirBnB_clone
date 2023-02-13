@@ -1,16 +1,8 @@
 #!/usr/bin/env python3
 """
-Once the command is known, argument completion is handled
-by methods with the prefix complete_.
-This allows you to assemble a list of possible completions
-using your own criteria (query a database,
-look at at a file or directory on the filesystem, etc.).
-In this case, the program has a hard-coded set of “friends”
-who receive a less formal greeting than named or anonymous
-strangers.
-A real program would probably save the list somewhere,
-and either read it once and cache the contents to be
-scanned as needed.
+Module console
+The console is a commandline interpreter for python
+In this module we define methods that define specific commands
 """
 
 import cmd
@@ -64,8 +56,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             completions = [f for f in storage.classes() if f.startswith(text)]
         return completions
-
-
 
     def do_show(self, args):
         """ Prints the string representation of an instance
@@ -231,7 +221,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             completions = [f for f in storage.classes() if f.startswith(text)]
         return completions
-
 
     def do_EOF(self, line):
         """ This handles case when CTRL-D is pressed and
