@@ -28,7 +28,6 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbtn) '
 
-    FRIENDS = ['Alice', 'Adam', 'Barbara', 'Bob']
     # Saves all Classes in form a List
     CLASSES = list(storage.classes())
     CLASS_IDS = list()
@@ -66,29 +65,7 @@ class HBNBCommand(cmd.Cmd):
             completions = [f for f in storage.classes() if f.startswith(text)]
         return completions
 
-    def help_greet(self):
-        """ prints a properly formatted help text for greet command
-        and overrrides the default do_greet docstring """
-        print("\n".join(['greet [person]', '\t\tGreet the named person', ]))
 
-    def do_greet(self, person):
-        'This help msg is overriden by help_greet'
-        if person and person in self.__class__.FRIENDS:
-            greeting = 'hi, %s!' % person
-        elif person:
-            greeting = "hello," + person
-        else:
-            greeting = 'hello'
-        print(greeting)
-
-    def complete_greet(self, text, line, begidx, endidx):
-        """ Perfoms argument autocompletions """
-        if not text:
-            completions = self.__class__.FRIENDS[:]
-        else:
-            completions = [
-                f for f in self.__class__.FRIENDS if f.startswith(text)]
-        return completions
 
     def do_show(self, args):
         """ Prints the string representation of an instance
@@ -255,10 +232,6 @@ class HBNBCommand(cmd.Cmd):
             completions = [f for f in storage.classes() if f.startswith(text)]
         return completions
 
-    def help_greet(self):
-        """ prints a properly formatted help text for greet command
-        and overrrides the default do_greet docstring """
-        print("\n".join(['greet [person]', '\t\tGreet the named person', ]))
 
     def do_EOF(self, line):
         """ This handles case when CTRL-D is pressed and
