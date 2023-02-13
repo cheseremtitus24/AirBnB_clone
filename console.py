@@ -49,30 +49,6 @@ class HBNBCommand(cmd.Cmd):
             st.save()
             print(st.id)
 
-    def do_greet(self, person):
-        'This help msg is overriden by help_greet'
-        if person and person in self.__class__.FRIENDS:
-            greeting = 'hi, %s!' % person
-        elif person:
-            greeting = "hello," + person
-        else:
-            greeting = 'hello'
-        print(greeting)
-
-    def complete_greet(self, text, line, begidx, endidx):
-        """ Perfoms argument autocompletions """
-        if not text:
-            completions = self.__class__.FRIENDS[:]
-        else:
-            completions = [f for f in self
-                           .__class__.FRIENDS if f.startswith(text)]
-        return completions
-
-    def help_greet(self):
-        """ prints a properly formatted help text for greet command
-        and overrrides the default do_greet docstring """
-        print("\n".join(['greet [person]', '\t\tGreet the named person', ]))
-
     def do_EOF(self, line):
         """
         This handles case when CTRL-D is pressed and
@@ -101,5 +77,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
     HBNBCommand().cmdloop()
