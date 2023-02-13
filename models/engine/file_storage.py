@@ -61,7 +61,8 @@ class FileStorage:
                      {"email": str,
                       "password": str,
                       "first_name": str,
-                      "last_name": str},
+                      "last_name": str
+                      },
             "State":
                      {"name": str},
             "City":
@@ -80,7 +81,8 @@ class FileStorage:
                       "price_by_night": int,
                       "latitude": float,
                       "longitude": float,
-                      "amenity_ids": list},
+                      "amenity_ids": list
+                      },
             "Review":
             {"place_id": str,
                          "user_id": str,
