@@ -6,6 +6,7 @@ specific tasks on data manipulation to a Json file
 """
 import cmd
 import sys
+import re
 from models.base_model import BaseModel
 from models import storage
 
@@ -16,24 +17,35 @@ class HBNBCommand(cmd.Cmd):
     which is derived from a function docstring
     rather it reads from help_*funcname*"""
 
-    prompt = '(hbnb) '
+    prompt = '(hbtn) '
 
     FRIENDS = ['Alice', 'Adam', 'Barbara', 'Bob']
+    # Saves all Classes in form a List
+    CLASSES = list(storage.classes())
+    CLASS_IDS = list()
+
+    def data_validator(self, line):
+        """ Validates to verify that proper data is fed to functions"""
+        # checks if class name is missing/empty
+        if not line:
+            print("** class name missing **")
+            return False
+        # checks that args(class Name) Exists
+        elif line not in storage.classes():
+            print("** class doesn't exist **")
+            return False
+        return True
 
     def do_create(self, args):
         """ Creates a Class Instance and Saves to Storage:
             (hbnb) create User
             """
-
-        # checks if class name is missing/empty
-        if not line:
-            print("** class name missing **")
-        # checks that args(class Name) Exists
-        elif line not in storage.classes():
-            print("** class doesn't exist **")
-        else:
+        if self.data_validator(args):
             # Instantiate the new class and save to storage
             st = storage.classes()[args]()
+            # above is similar to calling
+            # st = BaseModel()
+
             st.save()
             print(st.id)
 
@@ -86,8 +98,8 @@ class HBNBCommand(cmd.Cmd):
         """ This function is executed when cmdloop ends
         thus add a new line at end
         """
-        pass
 
 
 if __name__ == '__main__':
+    HBNBCommand().cmdloop()
     HBNBCommand().cmdloop()
