@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
-Once the command is known, argument completion is handled by methods with the prefix complete_. This allows you to assemble a list of possible completions using your own criteria (query a database, look at at a file or directory on the filesystem, etc.). In this case, the program has a hard-coded set of “friends” who receive a less formal greeting than named or anonymous strangers. A real program would probably save the list somewhere, and either read it once and cache the contents to be scanned as needed.
+Module console
+This is a commandline interpreter for backend use by the Developer to perform
+specific tasks on data manipulation to a Json file
 """
 import cmd
 import sys
@@ -35,8 +37,6 @@ class HBNBCommand(cmd.Cmd):
             st.save()
             print(st.id)
 
-            
-
     def do_greet(self, person):
         'This help msg is overriden by help_greet'
         if person and person in self.__class__.FRIENDS:
@@ -52,7 +52,8 @@ class HBNBCommand(cmd.Cmd):
         if not text:
             completions = self.__class__.FRIENDS[:]
         else:
-            completions = [ f for f in self.__class__.FRIENDS if f.startswith(text)]
+            completions = [f for f in self
+                           .__class__.FRIENDS if f.startswith(text)]
         return completions
 
     def help_greet(self):
@@ -61,14 +62,20 @@ class HBNBCommand(cmd.Cmd):
         print("\n".join(['greet [person]', '\t\tGreet the named person', ]))
 
     def do_EOF(self, line):
-        """ This handles case when CTRL-D is pressed and cause a successful exit without throwing off an error"""
+        """
+        This handles case when CTRL-D is pressed and
+        cause a successful exit without throwing off an error
+        """
         return True
 
     def do_quit(self, line):
         """ Exits the program """
         return True
+
     def help_quit(self):
-        """ Provides the helper text that explains what the quit function does"""
+        """
+        Provides the helper text that explains what the quit function does
+        """
         print("Quit command to exit the program\n")
 
     def emptyline(self):
@@ -83,5 +90,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-        HBNBCommand().cmdloop()
-
+    HBNBCommand().cmdloop()
