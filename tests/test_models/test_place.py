@@ -5,10 +5,11 @@ import os
 from models.place import Place
 from models.base_model import BaseModel
 
+
 class TestPlace(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.place= Place() 
+        cls.place = Place()
         cls.place.name = "uganda kasese"
         cls.place.city_id = "Benon"
         cls.place.user_id = "Masereka"
@@ -19,7 +20,8 @@ class TestPlace(unittest.TestCase):
         cls.place.price_by_night = 0
         cls.place.latitude = 0.0
         cls.place.longitude = 0.0
-        cls.place.amenity_ids = [] 
+        cls.place.amenity_ids = []
+
     @classmethod
     def tearDownClass(cls):
         del cls.place
@@ -27,7 +29,7 @@ class TestPlace(unittest.TestCase):
             os.remove("file.json")
         except FileNotFoundError:
             pass
-    
+
     def test_is_subclass(self):
         self.assertTrue(issubclass(self.place.__class__, BaseModel), True)
 
@@ -46,11 +48,11 @@ class TestPlace(unittest.TestCase):
         self.assertTrue('description' in self.place.__dict__)
         self.assertTrue('created_at' in self.place.__dict__)
         self.assertTrue('id' in self.place.__dict__)
-    
+
     def test_attributes_are_strings(self):
         self.assertTrue(type(self.place.name), str)
         self.assertTrue(type(self.place.user_id), str)
-        self.assertTrue(type(self.place.city_id),str)
+        self.assertTrue(type(self.place.city_id), str)
         self.assertTrue(type(self.place.number_bathrooms), int)
         self.assertTrue(type(self.place.number_rooms), int)
         self.assertTrue(type(self.place.latitude), float)
@@ -63,12 +65,10 @@ class TestPlace(unittest.TestCase):
     def test_save(self):
         self.place.save()
         self.assertNotEqual(self.place.created_at, self.place.updated_at)
-    
+
     def test_to_dict(self):
         self.assertEqual('to_dict' in dir(self.place), True)
 
+
 if __name__ == '__main__':
     unittest.main()
-
-
-
