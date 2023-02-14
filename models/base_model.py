@@ -22,7 +22,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """
-        Initialise class BaseModel 
+        Initialise class BaseModel
         atrributes: id, created-at, updated_at
         """
         if kwargs is not None:
@@ -47,6 +47,7 @@ class BaseModel:
         """Return string information about base Model"""
         return ("[{}] ({}) {}"
                 .format(self.__class__.__name__, self.id, self.__dict__))
+
     def __repr__(self):
         """
         Returns string representstion
