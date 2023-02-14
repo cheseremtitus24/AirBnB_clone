@@ -47,6 +47,11 @@ class BaseModel:
         """Return string information about base Model"""
         return ("[{}] ({}) {}"
                 .format(self.__class__.__name__, self.id, self.__dict__))
+    def __repr__(self):
+        """
+        Returns string representstion
+        """
+        return (self.__str__())
 
     def save(self):
         """update updated_at time and save """
