@@ -242,6 +242,7 @@ class HBNBCommand(cmd.Cmd):
         """ This function is executed when cmdloop ends
         thus add a new line at end
         """
+        print()
 
 
 if __name__ == '__main__':
