@@ -27,6 +27,10 @@ class BaseModel:
         """
         if kwargs is not None:
             for key, value in kwargs.items():
+                # Handle case when key is not a string
+                if type(key) not in [str]:
+                    raise TypeError("Key must be a String")
+
                 if "created_at" == key:
                     self.created_at = datetime.strptime(
                         kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
