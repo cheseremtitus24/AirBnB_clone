@@ -6,16 +6,24 @@ from models import storage
 
 """
 Module base_model
-defines class BaseModel for AirBnb clone
+Defines class BaseModel for AirBnb clone
 """
 
 
 class BaseModel:
-    """defines all common atrributes/methods for other claseses"""
+    """
+    Defines all common atrributes/methods for other claseses
+    methods:
+        __init__
+        __str__
+        save
+        to_dict
+    """
 
     def __init__(self, *args, **kwargs):
         """
-        Initialise atrributes id, created-at, updated_at
+        Initialise class BaseModel 
+        atrributes: id, created-at, updated_at
         """
         if kwargs is not None:
             for key, value in kwargs.items():
@@ -41,7 +49,7 @@ class BaseModel:
                 .format(self.__class__.__name__, self.id, self.__dict__))
 
     def save(self):
-        """update updated_at time """
+        """update updated_at time and save """
         # perform test for this using now to ensure that values
         # created is atleast 3 seconds within range
         self.updated_at = datetime.now()
