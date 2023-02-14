@@ -9,7 +9,10 @@ from models.base_model import BaseModel
 class TestAmenity(unittest.TestCase):
     @classmethod
     def tearUpClass(cls):
+<<<<<<< HEAD
 
+=======
+>>>>>>> 38653b9e55fe85b5cfcaf30c99502037ae371b72
         cls.amenity = Amenity()
         cls.amenity.name = "fireplace"
 
