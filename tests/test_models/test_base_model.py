@@ -44,8 +44,7 @@ class TestBaseModel(unittest.TestCase):
         """ Tests when multiple args are passed to BaseModel __init__ method"""
         # No error should be reported
         self.b0 = self.BaseModel([x for x in range(200)])
-        self.b0 = self.BaseModel(3,5,5,34,234)
-
+        self.b0 = self.BaseModel(3, 5, 5, 34, 234)
 
     def generate_key_value_pairs(self):
         """ Generates a zipped pair of 2 arrays
@@ -57,7 +56,7 @@ class TestBaseModel(unittest.TestCase):
                 """
         key = [i for i in range(200)]
         val = [i for i in range(200)]
-        return (key,val)
+        return (key, val)
 
     def test_instantiation_with_kwargs_param(self):
         """
@@ -65,23 +64,24 @@ class TestBaseModel(unittest.TestCase):
         :return:
         """
 
-        key,val = self.generate_key_value_pairs()
-        zip_content = zip([str(i) for i in key] ,val)
+        key, val = self.generate_key_value_pairs()
+        zip_content = zip([str(i) for i in key], val)
         my_dict = dict(zip_content)
         self.b0 = self.BaseModel(**my_dict)
         # print(self.b0)
         key = "{}.{}".format(type(self.b0).__name__, self.b0.id)
         check_dict = self.b0.to_dict()
         # print(check_dict)
-        self.assertEqual(check_dict.get('1',None),1)
-        self.assertEqual(check_dict.get('66',None),66)
-
+        self.assertEqual(check_dict.get('1', None), 1)
+        self.assertEqual(check_dict.get('66', None), 66)
 
     def test_each_run_a_unique_id_is_generated(self):
         "Checks that on each run a unique object ID is generated "
         self.b0 = None
-        l = [self.BaseModel().id for i in range(1000)]
-        self.assertEqual(len(set(l)), len(l))
+        my_list = []
+        for i in range(1000):
+            my_list.append(self.BaseModel().id)
+        self.assertEqual(len(set(my_list)), len(my_list))
 
     def test_date_is_current(self):
         """
@@ -94,6 +94,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(abs(diff.total_seconds()) < 0.01)
         diff = self.b0.created_at - date_now
         self.assertTrue(abs(diff.total_seconds()) < 0.1)
+
     @unittest.skip("Not yet Implemented")
     def test_restored_obj_have_same_id(self):
 
@@ -108,14 +109,17 @@ class TestBaseModel(unittest.TestCase):
         obj_dict = self.b0.to_dict()
         self.assertEqual(obj_dict["id"], self.b0.id)
         self.assertEqual(obj_dict["__class__"], type(self.b0).__name__)
-        self.assertEqual(obj_dict["created_at"], self.b0.created_at.isoformat())
-        self.assertEqual(obj_dict["updated_at"], self.b0.updated_at.isoformat())
+        self.assertEqual(
+            obj_dict["created_at"],
+            self.b0.created_at.isoformat())
+        self.assertEqual(
+            obj_dict["updated_at"],
+            self.b0.updated_at.isoformat())
         self.assertEqual(obj_dict["age"], self.b0.age)
 
     @unittest.skip("Not yet Implemented")
     def test_save_method(self):
         pass
-
 
     if __name__ == "__main__":
         unittest.main()
