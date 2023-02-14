@@ -7,6 +7,7 @@ from models import storage
 This module Runs Tests Against the BaseModel Class
 """
 
+
 class TestBaseModel(unittest.TestCase):
     def setUp(self):
         """
@@ -39,14 +40,11 @@ class TestBaseModel(unittest.TestCase):
             self.assertTrue(hasattr(self.b0, k))
             self.assertEqual(type(getattr(self.b0, k, None)), v)
 
-
-
     def test_instantiation_with_args_param(self):
         pass
 
     def test_instantiation_with_kwargs_param(self):
         pass
-
 
     def test_each_run_a_unique_id_is_generated(self):
         pass
@@ -60,8 +58,6 @@ class TestBaseModel(unittest.TestCase):
 
     def test_restored_obj_have_same_id(self):
         pass
-
-
 
 
 if __name__ == "__main__":
