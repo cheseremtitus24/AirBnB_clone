@@ -16,7 +16,7 @@ class TestPlace(unittest.TestCase):
         cls.place.description = "good contion 3 rooms"
         cls.place.number_rooms = 2
         cls.place.number_bathrooms = 0
-        cls.place.max_quest = 3
+        cls.place.max_guest = 3
         cls.place.price_by_night = 0
         cls.place.latitude = 0.0
         cls.place.longitude = 0.0
