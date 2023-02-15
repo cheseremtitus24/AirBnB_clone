@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Module for TestHBNBCommand class."""
+import json
 
 from console import HBNBCommand
 from models.engine.file_storage import FileStorage
