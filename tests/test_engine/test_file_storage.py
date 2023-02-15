@@ -47,7 +47,6 @@ class TestFileStorage(unittest.TestCase):
         all_instances = storage.all()
         self.assertIsNotNone(all_instances)
         self.assertEqual(type(all_instances), dict)
-        self.assertIs(all_instances, storage.__objects)
 
     def test_new(self):
         """
@@ -60,7 +59,7 @@ class TestFileStorage(unittest.TestCase):
         benon.id = '3333'
         storage.new(benon)
         key = benon.__class__.__name__ + "." + str(benon.id)
-        self.assertIsNone(all_instances[key])
+        self.assertIsNotNone(all_instances[key])
 
     def test_reload(self):
         """
