@@ -4,11 +4,20 @@
     padding: 0;
 }
 
+html {
+    height: 100vh;
+}
+
 body {
     color : #484848;
     font-size: 14px;
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    position: relative;
+    height:100%;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    height: 250%;
 }
